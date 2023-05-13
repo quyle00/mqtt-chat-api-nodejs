@@ -1,0 +1,27 @@
+definitions:
+  Cart:
+    type: object
+    properties:
+      _id:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      user:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      items:
+        type: arrays
+        example: [
+          {
+            "product": "611f764f3bd553cf780ce32a",
+            "quantity": 1
+          }
+        ]
+      __v:
+        type: integer
+        example: 0
+      createdAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z
+      updatedAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z

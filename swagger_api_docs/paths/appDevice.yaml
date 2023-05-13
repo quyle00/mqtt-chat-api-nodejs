@@ -1,0 +1,31 @@
+tags:
+  - name: AppDevices
+paths:
+  /app-device/:
+    post:
+      tags:
+        - AppDevices
+      summary: Create app device.
+      parameters:
+        - name: deviceToken
+          in: formData
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []

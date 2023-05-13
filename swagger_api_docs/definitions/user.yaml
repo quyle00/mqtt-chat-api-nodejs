@@ -1,0 +1,22 @@
+definitions:
+  User:
+    type: object
+    properties:
+      _id:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      email:
+        type: string
+        example: quythanh24@gmail.com
+      fullname:
+        type: string
+        example: Thanh Quý
+      phone:
+        type: string
+        example: 123456789
+      avatar:
+        type: string
+        example: users/611/avatar/2021/08/22/2ff6eaf44645c94f966fdbd582ed2886_1629638785402
+      address:
+        type: string
+        example: 1 Hung vuong

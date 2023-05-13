@@ -1,0 +1,145 @@
+tags:
+  - name: Brand
+paths:
+  /brand:
+    get:
+      tags:
+        - Brand
+      summary: Get all brands.
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    post:
+      tags:
+        - Brand
+      summary: Create new brand.
+      parameters:
+        - name: title
+          in: formData
+          description: 
+          required: true
+          type: string
+        - name: category
+          in: formData
+          description:
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server 
+      security:
+        - x-access-token: []
+  /brand/{id}:
+    get:    
+      tags:
+        - Brand
+      summary: Get brand by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    put:
+      tags:
+        - Brand
+      summary: Update brand by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: 
+          required: true
+          schema:
+            $ref: '#/definitions/Brand'
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    delete:
+      tags:
+        - Brand
+      summary: Delete brand by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []

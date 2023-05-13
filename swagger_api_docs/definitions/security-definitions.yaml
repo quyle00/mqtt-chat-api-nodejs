@@ -1,0 +1,5 @@
+securityDefinitions:
+  x-access-token:
+    type: "apiKey"
+    name: "x-access-token"
+    in: "header"

@@ -1,0 +1,25 @@
+definitions:
+  Category:
+    type: object
+    properties:
+      _id:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      title:
+        type: string
+        example: CPU
+      icon:
+        type: string
+        example: users/611/avatar/2021/08/22/2ff6eaf44645c94f966fdbd582ed2886_1629638785402
+      type:
+        type: integer
+        example: 1
+      __v:
+        type: integer
+        example: 0
+      createdAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z
+      updatedAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z

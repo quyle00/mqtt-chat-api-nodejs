@@ -1,0 +1,59 @@
+definitions:
+  Order:
+    type: object
+    properties:
+      _id:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      user:
+        type: string
+        example: 611f764f3bd553cf780ce32a
+      items:
+        type: arrays
+        example: [
+          {
+            "product": "611f764f3bd553cf780ce32a",
+            "quantity": 1
+          }
+        ]
+      totalPrice:
+        type: integer
+        example: 1000000
+      isPaid:
+        type: boolean
+        example: false
+      paidAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z
+      isDelivered:
+        type: boolean
+        example: false
+      deliveredAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z
+      shippingAddress:
+        type: object
+        example: {
+          "address": "123 Main St",
+          "city": "City Name",
+          "postalCode": "12345",
+          "country": "Country Name"
+        }
+      paymentMethod:
+        type: string
+        example: "PayPal"
+      phone:
+        type: string
+        example: "0123456789"
+      status:
+        type: string
+        example: Not Processed
+      __v:
+        type: integer
+        example: 0
+      createdAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z
+      updatedAt:
+        type: string
+        example: 2022-10-22T09:33:51.000Z

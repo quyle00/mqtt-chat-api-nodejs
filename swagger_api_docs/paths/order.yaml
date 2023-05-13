@@ -1,0 +1,138 @@
+tags:
+  - name: Order
+paths:
+  /order:
+    get:
+      tags:
+        - Order
+      summary: Get order.
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    post:
+      tags:
+        - Order
+      summary: Create new order.
+      parameters:
+        - name: body
+          in: body
+          description: 
+          required: true
+          type: string
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+  /order/{id}:
+    get:
+      tags:
+        - Order
+      summary: Get order by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server 
+      security:
+        - x-access-token: []
+    put:
+      tags:
+        - Order
+      summary: Update order by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: 
+          required: true
+          type: string
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+  /order/me:
+    get:
+      tags:
+        - Order
+      summary: Get order by user.
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []

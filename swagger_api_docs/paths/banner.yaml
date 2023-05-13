@@ -1,0 +1,159 @@
+tags:
+  - name: Banner
+paths:
+  /banner:
+    get:
+      tags:
+        - Banner
+      summary: Get all banner.
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    post:
+      tags:
+        - Banner
+      summary: Create new banner.
+      parameters:
+        - name: title
+          in: formData
+          description: 
+          required: true
+          type: string
+        - name: image
+          in: formData
+          description: 
+          required: false
+          type: string
+        - name: file
+          in: formData
+          description:
+          required: false
+          type: file
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+  /banner/{id}:
+    get:
+      tags:
+        - Banner
+      summary: Get banner by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    put:
+      tags:
+        - Banner
+      summary: Update banner by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: false
+          type: string
+        - name: title
+          in: formData
+          description: 
+          required: true
+          type: string
+        - name: image
+          in: formData
+          description: 
+          required: false
+          type: string
+        - name: file
+          in: formData
+          description:
+          required: false
+          type: file
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server 
+      security:
+        - x-access-token: []
+    delete:
+      tags:
+        - Banner
+      summary: Delete banner by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []

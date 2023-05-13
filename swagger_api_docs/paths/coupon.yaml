@@ -1,0 +1,202 @@
+tags:
+  - name: Coupon
+paths:
+  /coupon:
+    get:
+      tags:
+        - Coupon
+      summary: Get all coupon.
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    post:
+      tags:
+        - Coupon
+      summary: Create new coupn.
+      parameters:
+        - name: title
+          in: formData
+          description: 
+          required: true
+          type: string
+        - name: code
+          in: formData
+          description: 
+          required: false
+          type: string
+        - name: value
+          in: formData
+          description:
+          required: false
+          type: string
+        - name: expireAt
+          in: formData
+          description:
+          required: false
+          type: string
+        - name: quantity
+          in: formData
+          description:
+          required: false
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+  /coupon/{id}:
+    get:
+      tags:
+        - Coupon
+      summary: Get coupon by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+    put:
+      tags:
+        - Coupon
+      summary: Update coupon by id.
+      parameters:
+        - name: title
+          in: formData
+          description: 
+          required: true
+          type: string
+        - name: code
+          in: formData
+          description: 
+          required: false
+          type: string
+        - name: value
+          in: formData
+          description:
+          required: false
+          type: string
+        - name: expireAt
+          in: formData
+          description:
+          required: false
+          type: string
+        - name: quantity
+          in: formData
+          description:
+          required: false
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server 
+      security:
+        - x-access-token: []
+    delete:
+      tags:
+        - Coupon
+      summary: Delete coupon by id.
+      parameters:
+        - name: id
+          in: path
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []
+  /coupon/check: 
+    post:
+      tags:
+        - Coupon
+      summary: Check coupon.
+      parameters:
+        - name: code
+          in: formData
+          description: 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Responses Successful
+          schema:
+            $ref: '#/definitions/ResponseSuccess'
+        422:
+          description: Responses Validate Data
+          schema:
+            $ref: '#/definitions/ResponseError'
+        404:
+          description: Responses Data Not Found
+          schema:
+            $ref: '#/definitions/ResponseError'
+        500:
+          description: Server error
+      security:
+        - x-access-token: []

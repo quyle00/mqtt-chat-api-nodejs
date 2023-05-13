@@ -1,0 +1,41 @@
+definitions:
+  ResponseSuccess:
+      type: object
+      properties:
+        name:
+          type: HighTech API v1
+        code:
+          type: integer
+          format: int32
+          description: "`Status code`"
+          default: 200
+        error:
+          type: boolean
+          description: "`Error`"
+          default: false
+        messages:
+          type: string
+          default: Successful
+        data:
+          type: object
+
+  ResponseError:
+      type: object
+      properties:
+        name:
+          type: HighTech API v1
+        code:
+          type: integer
+          format: int32
+          description: "`Status code`"
+          default: 0
+        error:
+          type: boolean
+          description: "`Error`"
+          default: true
+        messages:
+          type: string
+          default: Successful
+        data:
+          type: object
+          default: null
