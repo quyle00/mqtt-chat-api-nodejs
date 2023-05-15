@@ -48,8 +48,8 @@ async function updateSeenMessages(req, res) {
     return error(req, res, validate);
   }
   const result = await Message.updateMany(
-    { _id: { $in: req.body.messages } },
-    { state: 2 }
+    { _id: { $in: req.body.messageIds } },
+    { $set: { state: 2 } }
   );
   return success(req, res, "Update success");
 }

@@ -11,6 +11,7 @@ mongoose.plugin(mongoosePaginate);
 mongoose.plugin(require("mongoose-autopopulate"));
 mongoose.plugin(require("mongoose-lean-virtuals"));
 mongoose.plugin(require("mongoose-cast-aggregation"));
+mongoose.set("strictQuery", true);
 
 mongoose
   .connect(

@@ -42,7 +42,7 @@ async function getConversationsByUser(req, res) {
     item.name = item.participants.filter(
       (participant) => participant._id != req.user.id
     )[0].fullname;
-    // item.participants = item.participants.map((participant) => participant._id);
+    item.lastMessage.isMine = item.lastMessage.sender._id == req.user.id;
   });
   return success(req, res, result);
 }
