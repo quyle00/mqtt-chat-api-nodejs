@@ -31,6 +31,7 @@ async function createMessage(req, res) {
   if (validate) {
     return error(req, res, validate);
   }
+  delete req.body._id;
   const result = await Message.createData(req.body);
   await result.populate("sender");
   const conversation = await Conversation.getByID(req.params.id);
