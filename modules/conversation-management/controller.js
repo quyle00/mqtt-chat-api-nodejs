@@ -32,17 +32,22 @@ async function createConversation(req, res) {
 }
 
 async function getConversationsByUser(req, res) {
+  //   await Message.deleteMany();
+  // await Conversation.deleteMany();
   let query = {
     participants: req.user.id,
     populate: "participants,lastMessage.sender",
   };
   query = { ...query, ...req.query };
   const result = await Conversation.getAll(query);
+  console.log(result);
   result.map((item) => {
     item.name = item.participants.filter(
       (participant) => participant._id != req.user.id
     )[0].fullname;
-    item.lastMessage.isMine = item.lastMessage.sender._id == req.user.id;
+    if (item.lastMessage) {
+      item.lastMessage.isMine = item.lastMessage.sender._id == req.user.id;
+    }
   });
   return success(req, res, result);
 }
