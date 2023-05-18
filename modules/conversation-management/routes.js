@@ -13,6 +13,7 @@ router.get(
   ErrorHandler(controller.getConversationDetailByPartnerId)
 );
 router.get("/:id", Auth, ErrorHandler(controller.getConversationDetail));
+router.get("/:id/last-message", Auth, ErrorHandler(controller.getLastMessage));
 router.use("/:id/message", Auth, ErrorHandler(MessageManagementRouter));
 
 module.exports = router;

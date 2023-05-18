@@ -75,9 +75,24 @@ async function getConversationDetailByPartnerId(req, res) {
   return success(req, res, result);
 }
 
+async function getLastMessage(req, res) {
+  const conversation = await Conversation.getOneByParams({
+    _id: req.params.id,
+  });
+  await conversation.populate({
+    path: "lastMessage",
+    populate: {
+      path: "sender",
+      model: "Users",
+    },
+  });
+  return success(req, res, conversation.lastMessage);
+}
+
 module.exports = {
   createConversation,
   getConversationsByUser,
   getConversationDetail,
   getConversationDetailByPartnerId,
+  getLastMessage,
 };
