@@ -21,11 +21,24 @@ async function getMessageByConversationId(req, res) {
 }
 
 async function createMessage(req, res) {
+  if(req.body.message){
+    req.body = JSON.parse(req.body.message);
+  }
+  if (req.files) {
+    // console.log(req.files);
+    req.body.images = [];
+    req.files.map((item) => {
+      let fullUrl = "http://192.168.1.168:3000/images" + "/" + item.filename ;
+      req.body.images.push(fullUrl);
+    });
+  }
   req.body.conversation = req.params.id;
   req.body.sender = req.user.id;
   let rules = {
-    content: ["required"],
+    // content: ["required"],
     sendTime: ["required"],
+    state: ["required"],
+    type: ["required"]
   };
   let validate = await Validate(req.body, rules);
   if (validate) {

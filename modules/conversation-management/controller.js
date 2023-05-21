@@ -1,5 +1,5 @@
 const { success, error } = require("../../helper/response");
-const { Conversation } = require("../../models");
+const { Conversation,Message } = require("../../models");
 const Validate = require("../../helper/get-errors-messages-validate");
 
 async function createConversation(req, res) {
@@ -32,7 +32,7 @@ async function createConversation(req, res) {
 }
 
 async function getConversationsByUser(req, res) {
-  //   await Message.deleteMany();
+    // await Message.deleteMany();
   // await Conversation.deleteMany();
   let query = {
     participants: req.user.id,
@@ -40,7 +40,6 @@ async function getConversationsByUser(req, res) {
   };
   query = { ...query, ...req.query };
   const result = await Conversation.getAll(query);
-  console.log(result);
   result.map((item) => {
     item.name = item.participants.filter(
       (participant) => participant._id != req.user.id
