@@ -9,6 +9,7 @@ module.exports = (mongoose) => {
         ref: "Conversation",
       },
       sender: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+      reply: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
       content: { type: String },
       images: [{ type: String }],
       type: { type: Number, required: true },

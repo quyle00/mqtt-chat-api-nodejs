@@ -1,5 +1,5 @@
 const { success, error } = require("../../helper/response");
-const { Conversation,Message } = require("../../models");
+const { Conversation, Message } = require("../../models");
 const Validate = require("../../helper/get-errors-messages-validate");
 
 async function createConversation(req, res) {
@@ -32,7 +32,7 @@ async function createConversation(req, res) {
 }
 
 async function getConversationsByUser(req, res) {
-    // await Message.deleteMany();
+  // await Message.deleteMany();
   // await Conversation.deleteMany();
   let query = {
     participants: req.user.id,
@@ -46,6 +46,8 @@ async function getConversationsByUser(req, res) {
     )[0].fullname;
     if (item.lastMessage) {
       item.lastMessage.isMine = item.lastMessage.sender._id == req.user.id;
+      // Remove reply message for testing
+      delete item.lastMessage.reply;
     }
   });
   return success(req, res, result);

@@ -6,7 +6,7 @@ async function getMessageByConversationId(req, res) {
   // await Message.deleteMany();
   // await Conversation.deleteMany();
   let query = {
-    populate: "sender",
+    populate: "sender,reply.sender",
     sort: "-createdAt",
   };
   req.query = { ...req.query, ...query };
@@ -17,18 +17,19 @@ async function getMessageByConversationId(req, res) {
   }
   req.query.conversation = req.params.id;
   const result = await Message.getAll(req.query);
+
   return success(req, res, result);
 }
 
 async function createMessage(req, res) {
-  if(req.body.message){
+  if (req.body.message) {
     req.body = JSON.parse(req.body.message);
   }
   if (req.files) {
     // console.log(req.files);
     req.body.images = [];
     req.files.map((item) => {
-      let fullUrl = "http://192.168.1.168:3000/images" + "/" + item.filename ;
+      let fullUrl = "http://172.17.12.122:3000/images" + "/" + item.filename;
       req.body.images.push(fullUrl);
     });
   }
@@ -38,7 +39,7 @@ async function createMessage(req, res) {
     // content: ["required"],
     sendTime: ["required"],
     state: ["required"],
-    type: ["required"]
+    type: ["required"],
   };
   let validate = await Validate(req.body, rules);
   if (validate) {
@@ -47,6 +48,15 @@ async function createMessage(req, res) {
   delete req.body._id;
   const result = await Message.createData(req.body);
   await result.populate("sender");
+  if (result.reply) {
+    await result.populate({
+      path: "reply",
+      populate: {
+        path: "sender",
+        model: "Users",
+      },
+    });
+  }
   const conversation = await Conversation.getByID(req.params.id);
   conversation.lastMessage = result._id;
   conversation.save();
