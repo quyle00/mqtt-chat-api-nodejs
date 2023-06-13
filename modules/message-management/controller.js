@@ -78,8 +78,46 @@ async function updateSeenMessages(req, res) {
   return success(req, res, "Update success");
 }
 
+async function updateMessage(req, res) {
+  let rules = {
+    _id: ["required"],
+    content: ["required"],
+  };
+  let validate = await Validate(req.body, rules);
+  if (validate) {
+    return error(req, res, validate);
+  }
+  req.body.edited = true;
+  const result = await Message.updateData(req.body._id, req.body);
+  await result.populate("sender");
+  if (result.reply) {
+    await result.populate({
+      path: "reply",
+      populate: {
+        path: "sender",
+        model: "Users",
+      },
+    });
+  }
+  return success(req, res, result);
+}
+
+async function deleteMessage(req, res) {
+  let rules = {
+    id: ["required"],
+  };
+  let validate = await Validate(req.params, rules);
+  if (validate) {
+    return error(req, res, validate);
+  }
+  const result = await Message.deleteOne(req.params.id);
+  return success(req, res, "Success");
+}
+
 module.exports = {
   getMessageByConversationId,
   createMessage,
   updateSeenMessages,
+  updateMessage,
+  deleteMessage,
 };

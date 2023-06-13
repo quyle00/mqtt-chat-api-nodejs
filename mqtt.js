@@ -15,31 +15,26 @@ aedes.on("clientDisconnect", function (client) {
 });
 
 aedes.on("publish", function (packet, client) {
-  console.log("publish");
-  // if (client) {
-  //   console.log(
-  //     "Client Publish |",
-  //     "ClientID:",
-  //     client?.id, 
-  //     "|",
-  //     "Topic:",
-  //     packet.topic,
-  //     "|",
-  //     "Payload:",
-  //     packet.payload.toString()
-  //   );
-  // }
+  if (client) {
+    console.log(
+      "MQTT",
+      "Publish",
+      "Topic:",
+      packet.topic,
+      "Retain:",
+      packet.retain,
+      "Payload:",
+      packet.payload.toString()
+    );
+  }
 });
 
 aedes.on("subscribe", function (subscriptions, client) {
-  // console.log(
-  //   "Client Subscribe |",
-  //   "ClientID:",
-  //   client?.id,
-  //   "|",
-  //   "Topic:",
-  //   subscriptions[0].topic
-  // );
+  console.log("MQTT", "Subscribe", "Topic:", subscriptions[0].topic);
+});
+
+aedes.on("unsubscribe", function (subscriptions, client) {
+  console.log("MQTT", "Unsubscribe", "Topic:", subscriptions[0].topic);
 });
 
 module.exports = aedes;

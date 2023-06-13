@@ -7,7 +7,9 @@ const upload = require("../../middle/upload");
 
 router.use(Auth);
 router.get("", ErrorHandler(controller.getMessageByConversationId));
-router.post("",upload.array('images'), ErrorHandler(controller.createMessage));
+router.post("", upload.array("images"), ErrorHandler(controller.createMessage));
+router.put("", ErrorHandler(controller.updateMessage));
+router.delete("/:id", ErrorHandler(controller.deleteMessage));
 router.put("/seen", ErrorHandler(controller.updateSeenMessages));
 
 module.exports = router;

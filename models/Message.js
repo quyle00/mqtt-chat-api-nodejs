@@ -15,6 +15,7 @@ module.exports = (mongoose) => {
       type: { type: Number, required: true },
       sendTime: { type: Number, required: true },
       state: { type: Number, required: true },
+      edited: { type: Boolean, default: false },
     },
     { timestamps: true }
   );
@@ -61,12 +62,7 @@ module.exports = (mongoose) => {
   };
 
   Message.deleteOne = async (id) => {
-    // return await Message.findByIdAndDelete(id);
-    return await Message.findByIdAndUpdate(id, { active: false }).then(
-      (data) => {
-        return Message.findById(id);
-      }
-    );
+    return await Message.findByIdAndDelete(id);
   };
 
   return Message;
