@@ -9,6 +9,8 @@ module.exports = (mongoose) => {
       username: { type: String, required: true, unique: true },
       password: { type: String },
       fullname: { type: String, required: true },
+      isOnline: { type: Boolean, default: false },
+      lastSeen: { type: Number, default: 0 },
       avatar: {
         type: String,
         required: false,
