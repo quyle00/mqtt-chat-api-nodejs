@@ -58,8 +58,15 @@ async function getConversationDetail(req, res) {
     _id: req.params.id,
   });
   await conversation.populate("participants");
+  await conversation.populate({
+    path: "lastMessage",
+    populate: {
+      path: "sender",
+      model: "Users",
+    },
+  });
   let result = conversation.toObject();
-  delete result.lastMessage;
+  // delete result.lastMessage;
   return success(req, res, result);
 }
 

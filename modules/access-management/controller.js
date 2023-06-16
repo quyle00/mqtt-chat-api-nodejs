@@ -34,6 +34,7 @@ async function login(req, res) {
   let rules = {
     username: ["required"],
     password: ["required", "min:6"],
+    // deviceToken: ["required"],
   };
 
   let validate = await Validate(req.body, rules);
@@ -52,19 +53,7 @@ async function login(req, res) {
   if (!checkPassword) {
     return error(req, res, "Login failed");
   }
-  // if (req.body.deviceToken) {
-  //   let device = await AppDevices.getOneByParams({
-  //     deviceToken: req.body.deviceToken,
-  //   });
-  //   if (device) {
-  //     await AppDevices.updateData(device._id, { user: user._id });
-  //   } else {
-  //     await AppDevices.createData({
-  //       deviceToken: req.body.deviceToken,
-  //       user: user._id,
-  //     });
-  //   }
-  // }
+  await Users.updateData(user._id, { deviceToken: req.body.deviceToken });
   const token = await generateToken(user);
   user.token = token;
   delete user.password;
