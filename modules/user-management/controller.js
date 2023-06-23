@@ -18,6 +18,8 @@ async function getAll(req, res) {
   users.map((item) => {
     delete item.password;
   });
+  //Remove current user
+  users = users.filter((item) => item._id != req.user.id);
   return success(req, res, users);
 }
 
