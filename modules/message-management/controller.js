@@ -26,11 +26,13 @@ async function createMessage(req, res) {
     req.body = JSON.parse(req.body.message);
   }
   if (req.files) {
-    // console.log(req.files);
-    req.body.images = [];
-    req.files.map((item) => {
-      let fullUrl = "http://172.17.12.122:3000/images" + "/" + item.filename;
-      req.body.images.push(fullUrl);
+    req.files.forEach((file) => {
+      let existMedia = req.body.medias.find((item) =>
+        item.localUri.includes(file.originalname)
+      );
+      if (existMedia) {
+        existMedia.url = "images" + "/" + file.filename;
+      }
     });
   }
   req.body.conversation = req.params.id;
@@ -110,8 +112,25 @@ async function deleteMessage(req, res) {
   if (validate) {
     return error(req, res, validate);
   }
-  const result = await Message.deleteOne(req.params.id);
-  return success(req, res, "Success");
+  const conversation = await Conversation.getOneByParams({
+    _id: req.params.id,
+  });
+  await Message.deleteOne(req.params.messageId);
+  if (conversation.lastMessage == req.params.messageId) {
+    let query = {
+      populate: "sender,reply.sender",
+      sort: "-createdAt",
+      conversation: req.params.id,
+      page: 1,
+      limit: 1,
+    };
+    const messages = await Message.getAll(query);
+    conversation.lastMessage = messages.data[0]._id;
+    await conversation.save();
+    return success(req, res, { newLastMessage: messages.data[0] });
+  } else {
+    return success(req, res, { newLastMessage: null });
+  }
 }
 
 module.exports = {

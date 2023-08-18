@@ -11,65 +11,56 @@ aedes.on("clientDisconnect", function (client) {
 });
 
 aedes.on("publish", async function (packet, client) {
-  // if (client) {
-  //   console.log(
-  //     "MQTT",
-  //     "Publish",
-  //     "Topic:",
-  //     packet.topic,
-  //     "Retain:",
-  //     packet.retain,
-  //     "Payload:",
-  //     packet.payload.toString()
-  //   );
-  // }
-
-  let buff = Buffer.from(packet?.payload);
-  let jsonData = null;
   try {
-    jsonData = JSON.parse(buff.toString());
-  } catch (e) {
-    console.log("Parse payload fail");
-  }
+    let buff = Buffer.from(packet?.payload);
+    let jsonData = null;
+    try {
+      jsonData = JSON.parse(buff.toString());
+    } catch (e) {
+      console.log("Parse payload fail");
+    }
 
-  const topicRegex = packet.topic.split("/");
-  if (topicRegex.length >= 3) {
-    switch (topicRegex[0]) {
-      case "conversation": {
-        let conversationId = topicRegex[1];
-        let userId = topicRegex[2];
-        let user = await Users.getByID(userId);
-        if (user.deviceToken) {
-          if (jsonData.type === 0 && !user.isOnline) {
-            PushNotification.sendPushNotification({
-              notification: {
-                title: user.fullname,
-                body: jsonData.message.content,
-              },
-              data: {
-                conversationId: conversationId,
-              },
-              deviceToken: user.deviceToken,
-            });
+    const topicRegex = packet.topic.split("/");
+    if (topicRegex.length >= 3) {
+      switch (topicRegex[0]) {
+        case "conversation": {
+          let conversationId = topicRegex[1];
+          let userId = topicRegex[2];
+          let user = await Users.getByID(userId);
+          if (user.deviceToken) {
+            if (jsonData.type === 0 && !user.isOnline) {
+              PushNotification.sendPushNotification({
+                notification: {
+                  title: user.fullname,
+                  body: jsonData.message.content,
+                },
+                data: {
+                  conversationId: conversationId,
+                },
+                deviceToken: user.deviceToken,
+              });
+            }
           }
+          break;
         }
-        break;
-      }
-      case "user": {
-        if (topicRegex[2] === "status") {
-          try {
-            await Users.updateData(jsonData._id, {
-              isOnline: jsonData.isOnline,
-              lastSeen: jsonData.lastSeen,
-            });
-          } catch (e) {
-            console.log(buff);
-            console.log("Parse fail");
+        case "user": {
+          if (topicRegex[2] === "status") {
+            try {
+              await Users.updateData(jsonData._id, {
+                isOnline: jsonData.isOnline,
+                lastSeen: jsonData.lastSeen,
+              });
+            } catch (e) {
+              console.log(buff);
+              console.log("Parse fail");
+            }
           }
+          break;
         }
-        break;
       }
     }
+  } catch (err) {
+    console.log(err);
   }
 });
 

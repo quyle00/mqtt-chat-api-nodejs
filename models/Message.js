@@ -11,7 +11,7 @@ module.exports = (mongoose) => {
       sender: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
       reply: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
       content: { type: String },
-      images: [{ type: String }],
+      medias: [{ type: Object }],
       type: { type: Number, required: true },
       sendTime: { type: Number, required: true },
       state: { type: Number, required: true },
